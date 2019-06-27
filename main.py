@@ -26,11 +26,11 @@ if __name__=='__main__':
 
 
 	parser.add_argument('--winlen',type=int, help='窗口长度，单位毫秒',default=25)
-	parser.add_argument('--winstep',type=int, help='窗口移动步长，单毫秒',default=5)
+	parser.add_argument('--winstep',type=int, help='窗口移动步长，单位毫秒',default=5)
 	parser.add_argument('--ndim',type=int, help='目标特征维度')
 	parser.add_argument('--dbclass',required=True, help='data_info中的数据库类名')
 	parser.add_argument('--idctfile', help='kpath,阶段产生的idct系数文件完整路径')
-	parser.add_argument('-vad', action='store_true', help='是否对声音进行vad处理')
+	parser.add_argument('-vad', action='store_true', help='是否对 wav 文件进行vad处理')
 	parser.add_argument('--feat',
 	                    choices=featlst,
 	                    required=True,
