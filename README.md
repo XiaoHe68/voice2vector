@@ -39,3 +39,31 @@ optional arguments:
                         可选特征类型  
 ```
 feat中的cvector,evector,rvector分别是对应层次聚类中使用的不同距离度量方法：余弦相似度、欧式距离、皮尔逊相关系数。
+
+# usage
+Please modify the `data_info.py` file first,the variable `wavefolder` is where the sound file is located,`outfolder` is where the feat file output folder,`extension` leave the default value `.wav` if you don't understand what that means.  
+the function `generatefunc` is used to create unique identifiers for sentences and which sentences someone says.
+```bash
+x-vector(Cosine similarity) :
+$ python3 main.py --dbclass=timit_info -dir --winlen=25  --winstep=10 -dev --feat=cvector --ndim=15
+$ python3 main.py --dbclass=timit_info -dir --winlen=25  --winstep=10 --feat=cvector --ndim=15
+
+x-vector(Euclidean distance) :
+$ python3 main.py --dbclass=timit_info -dir --winlen=25  --winstep=10 -dev --feat=evector --ndim=15
+$ python3 main.py --dbclass=timit_info -dir --winlen=25  --winstep=10 --feat=evector --ndim=15
+
+x-vector(Pearson correlation coefficient) :
+$ python3 main.py --dbclass=timit_info -dir --winlen=25  --winstep=10 -dev --feat=rvector --ndim=15
+$ python3 main.py --dbclass=timit_info -dir --winlen=25  --winstep=10 --feat=rvector --ndim=15
+
+mfcc:
+$ python3 main.py --dbclass=timit_info -dir --winlen=25  --winstep=10 --feat=mfcc
+
+use vad：
+If you want to use Voice Activity Detection(vad) add the parameter -vad After the command line，example
+$ python3 main.py --dbclass=timit_info -dir --winlen=25  --winstep=10 --feat=mfcc -vad
+```
+If you want to extract the features of a <b>single sentence</b>:
+```bash
+$ python3 main.py --dbclass=timit_info -file --winlen=25 --winstep=10 --feat=mfcc --infile=INPUT_FILEPATH --outfile=OUTPUT_FILEPATH --savefmt=npy
+```
