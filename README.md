@@ -1,3 +1,16 @@
+# voice2vector 
+voice2vector是一个对说话者语音进行特征提取的工具库可以用来提取以下声纹特征：
+cvector,evector,rvector,mfcc,mfcc_delta,mfcc_delta_delta,logfbank,fbank,hdcc,idct,spectrum_power
+
+本程序是基于 Python3 完成
+部分功能依赖库如下：  
+python_speech_features==0.6  
+scipy>=1.1.0  
+numpy>=1.16.0  
+sphfile>=1.0.1  
+
+
+使用帮助：
 
 ```bash
 $ python3 main.py -h
