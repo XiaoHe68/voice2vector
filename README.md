@@ -1,3 +1,4 @@
+
 ```bash
 $ python3 main.py -h
 使用说明
@@ -24,3 +25,4 @@ optional arguments:
   --feat {cvector,evector,rvector,mfcc,mfcc_delta,mfcc_delta_delta,logfbank,fbank,hdcc,idct,spectrum_power}
                         可选特征类型  
 ```
+feat中的cvector,evector,rvector分别是对应层次聚类中使用的不同距离度量方法：余弦相似度、欧式距离、皮尔逊相关系数。
