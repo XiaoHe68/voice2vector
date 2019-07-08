@@ -28,8 +28,8 @@ class voice_feature(object):
             return (rate, sig)
         
     
-    def __init__(self,featname):
-        self.set_feat_type(featname)
+    # def __init__(self):
+    #     self.set_feat_type(featname)
 
 
     def set_feat_type(self,featname):
@@ -89,12 +89,6 @@ class voice_feature(object):
         assert os.path.isfile(wavefile)
         (rate, sig) = self.__readwav(wavefile)
         return idctcoeff(sig, rate, self.p_win_len, self.p_win_step, self.p_pre_emphasis_coeff)
-
-
-    def f_spectrum_fft(self,wavefile):
-        assert os.path.isfile(wavefile)
-        #(rate, sig) = self.__readwav(wavefile)
-        #return idctcoeff(sig, rate, self.p_win_len, self.p_win_step, self.p_pre_emphasis_coeff)
 
 
     def f_spectrum_power(self,wavefile):

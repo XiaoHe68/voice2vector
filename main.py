@@ -14,23 +14,25 @@ if __name__=='__main__':
 
 	parser = argparse.ArgumentParser(description='使用说明')  # 首先创建一个ArgumentParser对象
 	parser.add_argument('-dev',action='store_true', help='标识 develop 阶段')
-	parser.add_argument('-file', action='store_true', help='提取单个文件')
+	parser.add_argument('-file', action='store_true', help='单文件提取模式')
+	parser.add_argument('-dir', action='store_true', help='文件夹提取模式，提取文件夹下所有文件，需要自己编辑data_info文件中的方法类')
+	parser.add_argument('-vad', action='store_true', help='是否对 wav 文件进行vad处理')
+
 	parser.add_argument('--savefmt',choices=['txt','npy'],help='单文件模式下特征保存格式')
 	parser.add_argument('--infile', help='输入文件')
 	parser.add_argument('--outfile', help='输出文件')
-	parser.add_argument('--kpath', help='xvector 开发阶段产生的路径文件')
+	parser.add_argument('--kpath', help='x-vector develop 阶段产生的路径文件（可选）')
 
-	parser.add_argument('-dir', action='store_true', help='提取文件夹下所有文件，需要自己编辑data_info文件中的方法类')
-	parser.add_argument('--outfolder',help='输出文件路径，默认值为data_info中定义的值')
-	parser.add_argument('--wavfolder', help='输入文件路径，默认值为data_info中对定义的值')
+	parser.add_argument('--outfolder',help='输出文件路径，默认值为data_info中定义的值（可选）')
+	parser.add_argument('--wavfolder', help='输入文件路径，默认值为data_info中对定义的值（可选）')
 
 
 	parser.add_argument('--winlen',type=int, help='窗口长度，单位毫秒',default=25)
 	parser.add_argument('--winstep',type=int, help='窗口移动步长，单位毫秒',default=5)
 	parser.add_argument('--ndim',type=int, help='目标特征维度')
-	parser.add_argument('--dbclass',required=True, help='data_info中的数据库类名')
-	parser.add_argument('--idctfile', help='kpath,阶段产生的idct系数文件完整路径')
-	parser.add_argument('-vad', action='store_true', help='是否对 wav 文件进行vad处理')
+	parser.add_argument('--dbclass',required=True, help='data_info 中的数据库类名')
+	parser.add_argument('--idctfile', help='develop 阶段产生的idct系数文件完整路径(可选)')
+
 	parser.add_argument('--feat',
 	                    choices=featlst,
 	                    required=True,
@@ -39,6 +41,7 @@ if __name__=='__main__':
 	args = parser.parse_args()
 	# 定义提取方法
 	fe = feature_extract.voice_feature(args.feat)
+	fe.set_feat_type(args.feat)
 	fe.p_win_len=args.winlen*0.001
 	fe.p_win_step=args.winstep*0.001
 

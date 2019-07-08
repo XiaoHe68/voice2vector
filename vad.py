@@ -1,9 +1,12 @@
 import numpy as np
 
 def vad_power_fast(sig,winstep,threshold,winlen,step=None,wavefile=''):
+    winstep=int(winstep)
+    winlen=int(winlen)
+
     minwin=winlen+winstep
     if step is None:
-        step=winstep
+        step=int(winstep)
     sig_power=np.square(sig)
     l=len(sig)
     assert l>winstep,'frame too short!'
