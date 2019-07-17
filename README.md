@@ -65,5 +65,5 @@ $ python3 main.py --dbclass=timit_info -dir --winlen=25  --winstep=10 --feat=mfc
 ```
 If you want to extract the features of a <b>single sentence</b>:
 ```bash
-$ python3 main.py --dbclass=timit_info -file --winlen=25 --winstep=10 --feat=mfcc --infile=INPUT_FILEPATH --outfile=OUTPUT_FILEPATH --savefmt=npy
+$ python3 main.py -file --winlen=25 --winstep=10 --feat=mfcc --infile=INPUT_FILEPATH --outfile=OUTPUT_FILEPATH --savefmt=npy
 ```
