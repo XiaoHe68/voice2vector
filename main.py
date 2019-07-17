@@ -30,7 +30,7 @@ if __name__=='__main__':
     parser.add_argument('--winlen',type=int, help='窗口长度，单位毫秒',default=25)
     parser.add_argument('--winstep',type=int, help='窗口移动步长，单位毫秒',default=5)
     parser.add_argument('--ndim',type=int, help='目标特征维度')
-    parser.add_argument('--dbclass',required=True, help='data_info 中的数据库类名')
+    parser.add_argument('--dbclass',help='data_info 中的数据库类名')
     parser.add_argument('--idctfile', help='develop 阶段产生的idct系数文件完整路径(可选)')
 
     parser.add_argument('--feat',
