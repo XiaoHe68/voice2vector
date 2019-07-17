@@ -1,6 +1,6 @@
 
 class timit_info(object):
-	wavefolder = '/Volumes/WDBlueTM/timit_feature/timit_wav/train'
+	wavefolder = '/Volumes/WDBlueTM/timit_feature/timit_wav'
 	outfolder = '/Volumes/WDBlueTM/timit_feature/timit_onefile/25ms_10ms'
 	extension='.wav'
 	idctcoefffile=''

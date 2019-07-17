@@ -9,7 +9,7 @@ if __name__=='__main__':
 
 
     devlst=['cvector','evector','rvector']
-    direclst=['mfcc','mfcc_delta','mfcc_delta_delta','logfbank','fbank','hdcc','idct','spectrum_power']
+    direclst=['mfcc','mfcc_delta','mfcc_delta_delta','logfbank','fbank','hdcc','idct','spectrum_power','hdcc_fs']
     featlst=devlst+direclst
 
     parser = argparse.ArgumentParser(description='usage ')

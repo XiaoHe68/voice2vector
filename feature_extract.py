@@ -11,8 +11,8 @@ from vad import vad_power_fast,vad_power_fast_no
 
 
 class voice_feature(object):
-    p_win_len=0.25
-    p_win_step=0.05
+    p_win_len=0.025
+    p_win_step=0.005
     p_nfft=512
     p_pre_emphasis_coeff=0.97
     p_nfilt=26
@@ -106,8 +106,28 @@ class voice_feature(object):
         (rate, sig) = self.__readwav(wavefile)
         feat1 = idctcoeff(sig, rate, self.p_win_len, self.p_win_step, self.p_pre_emphasis_coeff)
         row, clm = feat1.shape
+        spl = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000]
+        splhzhigh = 1000
+        xishu = [x * clm / splhzhigh for x in spl]
+
+        feat = np.zeros((row, len(spl) - 1))
+        for i in range(len(xishu) - 1):
+            st = int(xishu[i])
+            ed = int(xishu[i + 1])
+            bst = feat1[:, st:ed]
+            liclist1 = np.sum(bst, axis=1)
+            if len(liclist1) == 0:
+                continue
+            feat[:, i] = liclist1
+        return feat
+
+    def f_hdcc_mel(self,wavefile):
+        (rate, sig) = self.__readwav(wavefile)
+        feat1 = idctcoeff(sig, rate, self.p_win_len, self.p_win_step, self.p_pre_emphasis_coeff)
+        row, clm = feat1.shape
         hzrange = 1000.0
         spl = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000]
+
         melspl = [utils.hz2mel(xx) for xx in spl]
         splhzhigh = utils.hz2mel(hzrange)
         xishu = [x * clm / splhzhigh for x in melspl]
@@ -122,19 +142,17 @@ class voice_feature(object):
             feat[:, i] = liclist1
         return feat
 
-
-    def f_hdcc_from_feat(self,idctcoeff_feat):
-        row, clm = idctcoeff_feat.shape
-        hzrange = 1000.0
-        spl = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000]
-        melspl = [utils.hz2mel(xx) for xx in spl]
-        splhzhigh = utils.hz2mel(hzrange)
-        xishu = [x * clm / splhzhigh for x in melspl]
-        feat = np.zeros((row, len(spl) - 1))
+    def f_hdcc_fs(self,wavefile):
+        (rate, sig) = self.__readwav(wavefile)
+        feat1 = idctcoeff(sig, rate, self.p_win_len, self.p_win_step, self.p_pre_emphasis_coeff)
+        row, clm = feat1.shape
+        spl = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000]
+        xishu = list(sorted([int(rate/x) for x in spl]+[0]))
+        feat = np.zeros((row, len(spl)))
         for i in range(len(xishu) - 1):
             st = int(xishu[i])
             ed = int(xishu[i + 1])
-            bst = idctcoeff_feat[:, st:ed]
+            bst = feat1[:, st:ed]
             liclist1 = np.sum(bst, axis=1)
             if len(liclist1) == 0:
                 continue
@@ -143,9 +161,13 @@ class voice_feature(object):
 
 
 
-
 if __name__=='__main__':
     wavefile='/Volumes/WDBlueTM/timit_feature/timit_wav/test/dr1/faks0/sa1.wav'
-    (rate, sig) = self.__readwav(wavefile)
-    idctcoeff(sig, rate,0.025, 0.005)
+    vf=voice_feature()
+    vf.p_vad=False
+    vf.p_win_len=0.02
+    vf.f_hdcc_fs(wavefile)
+
+    #(rate, sig) = self.__readwav(wavefile)
+    #idctcoeff(sig, rate,0.025, 0.005)
     
