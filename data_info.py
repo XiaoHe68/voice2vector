@@ -3,7 +3,7 @@ class timit_info(object):
 	wavefolder = '/Volumes/WDBlueTM/timit_feature/timit_wav'
 	outfolder = '/Volumes/WDBlueTM/timit_feature/timit_onefile/25ms_10ms'
 	extension='.wav'
-	idctcoefffile=''
+	pre_data=''
 
 	def generatefunc(self,wavefilepath):
 		personname = wavefilepath.split('/')[-2]
@@ -14,7 +14,7 @@ class timit_info(object):
 class librispeech_info(object):
 	wavefolder='/diskc/datafile/thch30/LibriSpeech/wav'
 	outfolder='/diskc/datafile/thch30/LibriSpeech/onefile'
-	idctcoefffile = ''
+	pre_data = ''
 	extension = '.wav'
 
 
