@@ -79,10 +79,14 @@ class voice_feature(object):
         feat1 = idctcoeff(sig,rate,self.p_win_len,self.p_win_step,self.p_pre_emphasis_coeff)
         return _merge_feat(feat1,kpath,k)
 
-    def f_xvector_from_feat(self,featfile,k=15,kpath=''):
-        assert  os.path.isfile(kpath)
-        assert os.path.isfile(featfile)
-        assert k>0
+    def f_v2v(self,featsetFile,kargs):
+        kpath=kargs.get('kpath','')
+        k=kargs.get('ndim',15)
+        assert os.path.isfile(kpath),'kpath not exit'
+        assert os.path.isfile(wavefile),'wav not exit'
+        (rate, sig) = self.__readwav(wavefile)
+        feat1 = idctcoeff(sig,rate,self.p_win_len,self.p_win_step,self.p_pre_emphasis_coeff)
+        return _merge_feat(feat1,kpath,k)
 
 
     def f_idct(self,wavefile):
@@ -100,7 +104,6 @@ class voice_feature(object):
         frames *= np.hamming(int(round(self.p_win_len * rate)))  # 加窗
         spec_power = spectrum_power(frames, self.p_nfft)  # 得到每一帧FFT以后的能量谱
         return spec_power
-
 
     def f_hdcc(self,wavefile):
         (rate, sig) = self.__readwav(wavefile)
@@ -165,8 +168,9 @@ if __name__=='__main__':
     wavefile='/Volumes/WDBlueTM/timit_feature/timit_wav/test/dr1/faks0/sa1.wav'
     vf=voice_feature()
     vf.p_vad=False
-    vf.p_win_len=0.02
-    vf.f_hdcc_fs(wavefile)
+    vf.p_win_len=0.04
+
+    vf.f_idct(wavefile)
 
     #(rate, sig) = self.__readwav(wavefile)
     #idctcoeff(sig, rate,0.025, 0.005)
